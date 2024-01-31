@@ -1,6 +1,6 @@
 import argparse
 from Engine import Engine
-from configs import *
+from importlib import import_module
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -9,7 +9,7 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    conf = globals()[args.config].config
+    conf = import_module(f"configs.{args.config}").config
     conf['config'] = args.config
     engine = Engine(conf)
     engine.train()
